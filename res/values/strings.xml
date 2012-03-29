@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, AntiStressExerciseActivity!</string>
+    <string name="app_name">AntiStressExercise</string>
+    <string name="Breath3">Take an easy breath for %d seconds</string>
+	<string name="Keep10">Keep your breath %d seconds</string>
+	<string name="BreathIn3Serie">Take IN an easy breath for %1$d seconds. Serie %2$d from %3$d.</string>
+	<string name="BreathOut3Serie">Take OUT an easy breath for %d seconds.</string>
+	<string name="Finish">You finish exercise!</string>
+	<string name="prepareText">Prepare to:</string>
+	<string name="endOfExercise">End of exercise</string>
+	<string name="infoText">Click Start to begin exercise.</string>
+</resources>
