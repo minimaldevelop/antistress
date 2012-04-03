@@ -8,7 +8,22 @@
 	<string name="BreathIn3Serie">Take IN an easy breath for %1$d seconds. Serie %2$d from %3$d.</string>
 	<string name="BreathOut3Serie">Take OUT an easy breath for %d seconds.</string>
 	<string name="Finish">You finish exercise!</string>
-	<string name="prepareText">Prepare to:</string>
+	<string name="actionText">Current action:</string>
+	<string name="prepareText">Next action:</string>
 	<string name="endOfExercise">End of exercise</string>
 	<string name="infoText">Click Start to begin exercise.</string>
+	<string name="infoText2">Click Start to begin exercise.</string>
+	<string name="startButton">Start or Resume</string>
+	<string name="stopButton">Pause</string>
+	<string name="menuSettings">Settings</string>
+	<string name="menuHelp">Help</string>
+	<string name="notificationTitle">Remainder</string>
+	<string name="notificationBody">It is time for Anti-stress exercise</string>
+	<string name="prefRemainderTitle1">First remainder time</string>
+	<string name="prefRemainderTitle2">Second remainder time</string>
+	<string name="prefRemainderTitle3">Third remainder time</string>
+	<string name="prefRemainderSummary">Current remainder set to %s</string>
+	<string name="prefRemainder1DefaultValue">10:00</string>
+	<string name="prefRemainder2DefaultValue">15:00</string>
+	<string name="prefRemainder3DefaultValue">20:00</string>
 </resources>

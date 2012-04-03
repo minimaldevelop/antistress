@@ -19,59 +19,18 @@ import android.content.Context;
 import android.content.Intent;
 
 public class OnBootReceiver extends BroadcastReceiver {
-	private static final int PERIOD = 300000; // 5 minutes
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-//		AlarmManager mgr = (AlarmManager) context
-//				.getSystemService(Context.ALARM_SERVICE);
-//
-//		Calendar now = Calendar.getInstance();
-//		int hour = now.get(Calendar.HOUR_OF_DAY);
-//		int minute = now.get(Calendar.MINUTE);
-//
-//		// TODO: For future check SharedPreferences for settings and use that
-//		// instead of default
-//		
-//		int nextAlarmHour = 10;
-//		
-//		// default settings
-//		int addMinutes = 60 - minute;
-//		int addHours = 0;
-//		if (hour < 10) {
-//			addHours = 10 - hour;
-//			nextAlarmHour = 15;
-//		} else if (hour > 10 && hour < 15) {
-//			addHours = 15 - hour;
-//			nextAlarmHour = 20;
-//		} else if (hour > 15 && hour < 20) {
-//			addHours = 20 - hour;
-//			nextAlarmHour = 10;
-//		} else if (hour == 10 || hour == 15 || hour == 20) {
-//			addMinutes = 2;
-//			switch(hour) {
-//			case 10:
-//				nextAlarmHour = 15;
-//				break;
-//			case 15:
-//				nextAlarmHour = 20;
-//				break;
-//			case 20:
-//				nextAlarmHour = 10;
-//				break;
-//			}
-//		}
-//
-//		// convert hours and minutes to seconds
-//		long addSeconds = addHours * 60 * 60;
-//		addSeconds += addMinutes * 60;
-//		// convert to mseconds
-//		long addMiliSeconds = addSeconds * 1000;
-//
-//		Intent i = new Intent(context, OnAlarmReceiver.class);
-//		i.putExtra("NextAlarmHour", nextAlarmHour);
-//		i.putExtra("CurrentMSforAlarm", addMiliSeconds);
-//		PendingIntent pi = PendingIntent.getBroadcast(context, 0, i, 0);
-//		mgr.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, addMiliSeconds, pi);
+
+		if (intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
+//			Log.d("BOOT_COMPLETED", "Antistress BOOT_COMPLETED");
+			
+			Intent i = new Intent("com.minimaldevelop.antistress.REMAINDER_SETUP");
+			i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			// call Activity to setup remainder
+			context.startActivity(i);
+		}
+
 	}
 }

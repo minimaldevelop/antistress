@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<CheckBoxPreference android:key="remainderOn"
+		android:title="Enable Remainder" android:summary="Enable remainder notifications."
+		android:defaultValue="false" />
+	<ListPreference android:entries="@array/pref_time"
+		android:title="@string/prefRemainderTitle1" android:key="prefRemainder1"
+		android:entryValues="@array/pref_time"
+		android:summary="@string/prefRemainderSummary"
+		android:defaultValue="@string/prefRemainder1DefaultValue" />
+	<ListPreference android:entries="@array/pref_time"
+		android:title="@string/prefRemainderTitle2" android:key="prefRemainder2"
+		android:entryValues="@array/pref_time"
+		android:summary="@string/prefRemainderSummary"
+		android:defaultValue="@string/prefRemainder2DefaultValue" />
+	<ListPreference android:entries="@array/pref_time"
+		android:title="@string/prefRemainderTitle3" android:key="prefRemainder3"
+		android:entryValues="@array/pref_time"
+		android:summary="@string/prefRemainderSummary"
+		android:defaultValue="@string/prefRemainder3DefaultValue" />
+</PreferenceScreen>
