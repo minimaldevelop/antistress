@@ -373,14 +373,13 @@ public class AntiStressExerciseActivity extends Activity {
 	    switch (item.getItemId()) {
 	    
 	        case R.id.item1:
-	        	Toast.makeText(this, R.string.menuSettings + " clicked",Toast.LENGTH_SHORT).show();
 	        	Intent intent = new Intent (AntiStressExerciseActivity.this, Preferences.class);
 	        	startActivity(intent);
 	        break;
 	        
 	        
 	        case R.id.item2:
-	        	Toast.makeText(this, R.string.menuHelp + " clicked",Toast.LENGTH_SHORT).show();
+	        	Toast.makeText(this, "Help will be written soon.",Toast.LENGTH_SHORT).show();
 	        break;
 	        
 	    }
