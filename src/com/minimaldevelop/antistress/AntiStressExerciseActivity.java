@@ -2,7 +2,6 @@ package com.minimaldevelop.antistress;
 
 import java.util.Calendar;
 
-
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.NotificationManager;
@@ -12,6 +11,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.PowerManager;
+import android.os.PowerManager.WakeLock;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -24,6 +25,9 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.ads.AdRequest;
+import com.google.ads.AdView;
 
 public class AntiStressExerciseActivity extends Activity {
 
@@ -39,7 +43,8 @@ public class AntiStressExerciseActivity extends Activity {
 	private int tick = 10;
 	private int progress = 0;
 	private final int PROGRESSMAX = 1005;
-	private final int SPEED = 200; //need to be 1000, other values only use for testing
+	private final int SPEED = 1000; //need to be 1000, other values only use for testing
+	private WakeLock wakeLock;
 	
 	private enum ExerciseState {
 		Breath3, Keep10, BreathIn3Serie, BreathOut3Serie
@@ -82,6 +87,26 @@ public class AntiStressExerciseActivity extends Activity {
 		mStartButton.setOnClickListener(mStartListener);
 		mStopButton.setOnClickListener(mStopListener);
 		mStopButton.setEnabled(false);
+		
+		//Wake lock
+		PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
+		wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK, "AntiStress");
+		
+		//Admob
+		AdView adView = (AdView)this.findViewById(R.id.adView);
+	    adView.loadAd(new AdRequest());
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		wakeLock.acquire();
+	}
+	
+	@Override
+	protected void onPause() {
+		super.onPause();
+		wakeLock.release();
 	}
 
 	private Runnable mUpdateTimeTask = new Runnable() {
@@ -379,11 +404,11 @@ public class AntiStressExerciseActivity extends Activity {
 	        
 	        
 	        case R.id.item2:
-	        	Toast.makeText(this, "Help will be written soon.",Toast.LENGTH_SHORT).show();
+	        	Toast.makeText(this, "Will be implemented soon",Toast.LENGTH_SHORT).show();
 	        break;
 	        
 	    }
-	    return true;
+	    return true; 
 	}
 	
 	@Override
