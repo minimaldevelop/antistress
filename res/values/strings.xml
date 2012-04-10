@@ -27,6 +27,8 @@
 	<string name="prefRemainder1DefaultValue">10:00</string>
 	<string name="prefRemainder2DefaultValue">15:00</string>
 	<string name="prefRemainder3DefaultValue">20:00</string>
+	<string name="toggleSoundON">Sound ON</string>
+	<string name="toggleSoundOFF">Sound OFF</string>
 	<string name="helpText"><![CDATA[
 <b>Why to use this exercise?</b><br />
 Use this exercise primarily if you are in state of stress when you have rapid heartbeat, dried mouth and chest pain, but you can use it every day to be settled down and protect your health. <br /><br />

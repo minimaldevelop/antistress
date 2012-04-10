@@ -1,5 +1,6 @@
 package com.minimaldevelop.antistress;
 
+import java.io.IOException;
 import java.util.Calendar;
 
 import android.app.Activity;
@@ -9,6 +10,8 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.AssetFileDescriptor;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
@@ -22,9 +25,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
@@ -38,13 +43,14 @@ public class AntiStressExerciseActivity extends Activity {
 	private TextView mActionLabel;
 	private TextView mActionPrepareLabel;
 	private Button mStartButton;
-	private Button mStopButton;
 	private ProgressBar mProgressBar;
+	private ToggleButton mToggleSound;
 	private int tick = 10;
 	private int progress = 0;
 	private final int PROGRESSMAX = 1005;
 	private final int SPEED = 200; //need to be 1000, other values only use for testing
 	private WakeLock wakeLock;
+	private MediaPlayer mPlayer = new MediaPlayer();
 	
 	private enum ExerciseState {
 		Breath3, Keep10, BreathIn3Serie, BreathOut3Serie
@@ -54,8 +60,14 @@ public class AntiStressExerciseActivity extends Activity {
 		Start, Resume, Pause
 	}
 	
+	private enum MPlayerState {
+		Init, Playing, Pause
+	}
+	
 	private ExerciseState exerciseState = ExerciseState.Breath3;	
 	private ButtonState buttonState = ButtonState.Start;
+	private MPlayerState mplayerState = MPlayerState.Init;
+	
 	private int currentExerciseTry = 0;
 	private int currentBreath3Serie = 1;
 	private final String ACTION_REMAINDER_SETUP = "com.minimaldevelop.antistress.REMAINDER_SETUP";
@@ -83,15 +95,14 @@ public class AntiStressExerciseActivity extends Activity {
 		mTimeLabel = (TextView) findViewById(R.id.textView1);
 		mActionLabel = (TextView) findViewById(R.id.textView2);
 		mStartButton = (Button) findViewById(R.id.button1);
-		mStopButton = (Button) findViewById(R.id.button2);
 		mProgressBar = (ProgressBar) findViewById(R.id.progressBar1);
 		mActionPrepareLabel = (TextView) findViewById(R.id.textView4);
+		mToggleSound = (ToggleButton) findViewById(R.id.toggleButton1);
 		
 		mProgressBar.setMax(PROGRESSMAX);
 
 		mStartButton.setOnClickListener(mStartListener);
-		mStopButton.setOnClickListener(mStopListener);
-		mStopButton.setEnabled(false);
+		mToggleSound.setOnCheckedChangeListener(mSoundToggle);
 		
 		//Wake lock
 		PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
@@ -100,6 +111,9 @@ public class AntiStressExerciseActivity extends Activity {
 		//Admob
 		AdView adView = (AdView)this.findViewById(R.id.adView);
 	    adView.loadAd(new AdRequest());
+	    
+	    //Play some music
+	    toggleMusic(true);
 	}
 	
 	@Override
@@ -158,13 +172,14 @@ public class AntiStressExerciseActivity extends Activity {
 			}
 		}
 	};
-
-	OnClickListener mStopListener = new OnClickListener() {
+	
+	OnCheckedChangeListener mSoundToggle = new OnCheckedChangeListener() {
+		
 		@Override
-		public void onClick(View v) {
-			mHandler.removeCallbacks(mUpdateTimeTask);
-			mStopButton.setEnabled(false);
-			mStartButton.setEnabled(true);
+		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+			// TODO Auto-generated method stub
+			
+				toggleMusic(isChecked);
 		}
 	};
 	
@@ -330,6 +345,31 @@ public class AntiStressExerciseActivity extends Activity {
 					SystemClock.elapsedRealtime() + nextRemainderMiliseconds, pi);
 		}
 	}
+	
+	private void toggleMusic(boolean enabled) {
+		
+		if (D) Log.d(TAG, "toggleMusic nabled=" + enabled + " mplayerState=" + mPlayer.toString());
+		
+		if (mplayerState == MPlayerState.Init) {
+			try {
+				AssetFileDescriptor afd = getAssets().openFd("antistress_flute_ocean.ogg");
+				mPlayer.setDataSource(afd.getFileDescriptor(),afd.getStartOffset(), afd.getLength());
+				mPlayer.prepare();
+				mPlayer.setLooping(true);
+				mPlayer.start();
+				mplayerState = MPlayerState.Playing;
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else if (mplayerState == MPlayerState.Playing) {
+			mPlayer.pause();
+			mplayerState = MPlayerState.Pause;
+		} else if (mplayerState == MPlayerState.Pause) {
+			mPlayer.start();
+			mplayerState = MPlayerState.Playing;
+		}
+	}
 		
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -356,6 +396,7 @@ public class AntiStressExerciseActivity extends Activity {
 	    }
 	    return true; 
 	}
+
 	
 	@Override
 	protected void onDestroy() {
@@ -364,6 +405,8 @@ public class AntiStressExerciseActivity extends Activity {
 		//if is enabled in shared preferences
 		Log.d(TAG, TAG+" OnDestroy()");
 		setupRemainder();
+		mPlayer.stop();
+		mPlayer.release();
 	}
 
 }

@@ -53,7 +53,7 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:text="@string/infoText2"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceLarge" android:textColor="#ccc"/>
 
     <ProgressBar
         android:id="@+id/progressBar1"
@@ -69,22 +69,26 @@
         android:layout_height="wrap_content"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:paddingTop="5dp"
+        android:paddingTop="0dp"
         android:weightSum="100" >
 
         <Button
             android:id="@+id/button1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="70"
-            android:text="@string/startButton" />
+            android:layout_weight="50"
+            android:text="@string/startButton" android:layout_marginTop="6dp"/>
 
-        <Button
-            android:id="@+id/button2"
+        <ToggleButton
+            android:id="@+id/toggleButton1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="30"
-            android:text="@string/pauseButton" />
+            android:layout_weight="50"
+            android:text="ToggleButton" 
+            android:textOn="@string/toggleSoundON"
+            android:textOff="@string/toggleSoundOFF"
+            android:checked="true" />
+
     </LinearLayout>
 
     <LinearLayout
