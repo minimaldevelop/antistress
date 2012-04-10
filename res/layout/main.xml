@@ -84,17 +84,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="30"
-            android:text="@string/stopButton" />
+            android:text="@string/pauseButton" />
     </LinearLayout>
 
-    <com.google.ads.AdView
-        android:id="@+id/adView"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_gravity="bottom"
-        ads:adSize="BANNER"
-        ads:adUnitId="a14f7c6dffc0714"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
         android:gravity="bottom"
-        ads:loadAdOnCreate="true"/>
+        android:orientation="vertical" >
+
+        <com.google.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            ads:adSize="BANNER"
+            ads:adUnitId="a14f7c6dffc0714"
+            ads:loadAdOnCreate="true" >
+
+        </com.google.ads.AdView>
+    </LinearLayout>
 
 </LinearLayout>

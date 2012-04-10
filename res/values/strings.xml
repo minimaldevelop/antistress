@@ -5,16 +5,17 @@
     <string name="app_name">AntiStressExercise</string>
     <string name="Breath3">Take an easy breath for %d seconds</string>
 	<string name="Keep10">Keep your breath %d seconds</string>
-	<string name="BreathIn3Serie">Take IN an easy breath for %1$d seconds. Serie %2$d from %3$d.</string>
-	<string name="BreathOut3Serie">Take OUT an easy breath for %d seconds.</string>
+	<string name="BreathIn3Serie">Breath IN easy for %1$d seconds. Cycle %2$d from %3$d.</string>
+	<string name="BreathOut3Serie">Breath OUT easy for %d seconds.</string>
 	<string name="Finish">You finish exercise!</string>
 	<string name="actionText">Current action:</string>
 	<string name="prepareText">Next action:</string>
 	<string name="endOfExercise">End of exercise</string>
 	<string name="infoText">Click Start to begin exercise.</string>
 	<string name="infoText2">Click Start to begin exercise.</string>
-	<string name="startButton">Start or Resume</string>
-	<string name="stopButton">Pause</string>
+	<string name="startButton">Start</string>
+	<string name="resumeButton">Resume</string>
+	<string name="pauseButton">Pause</string>
 	<string name="menuSettings">Settings</string>
 	<string name="menuHelp">Help</string>
 	<string name="notificationTitle">Remainder</string>
@@ -26,4 +27,16 @@
 	<string name="prefRemainder1DefaultValue">10:00</string>
 	<string name="prefRemainder2DefaultValue">15:00</string>
 	<string name="prefRemainder3DefaultValue">20:00</string>
+	<string name="helpText"><![CDATA[
+<b>Why to use this exercise?</b><br />
+Use this exercise primarily if you are in state of stress when you have rapid heartbeat, dried mouth and chest pain, but you can use it every day to be settled down and protect your health. <br /><br />
+<b>How to use tips:</b><br />
+- Breathe shallowly to the stomach through the nose, shoulders are not allowed to move while breathe. This is also called diaphragmatic breath.<br />
+- Do not breathe deeply and rapidly or too strong because you will provoke even more heart palpitations.<br />
+- You need to sit or lie down comfortably.<br /><br />
+<b>Exercise backround</b><br />
+If you don\'t know why all of this, it is because the standard hyperventilation follow all fear and panic and resulting in heart palpitations, shortness of breath, dizziness, and chest pain. So in this way it\'ll balance the ratio of O2 and CO2 in the blood.
+]]>
+</string>
+
 </resources>

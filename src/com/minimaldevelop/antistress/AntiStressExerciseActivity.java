@@ -43,14 +43,19 @@ public class AntiStressExerciseActivity extends Activity {
 	private int tick = 10;
 	private int progress = 0;
 	private final int PROGRESSMAX = 1005;
-	private final int SPEED = 1000; //need to be 1000, other values only use for testing
+	private final int SPEED = 200; //need to be 1000, other values only use for testing
 	private WakeLock wakeLock;
 	
 	private enum ExerciseState {
 		Breath3, Keep10, BreathIn3Serie, BreathOut3Serie
 	};
 	
+	private enum ButtonState {
+		Start, Resume, Pause
+	}
+	
 	private ExerciseState exerciseState = ExerciseState.Breath3;	
+	private ButtonState buttonState = ButtonState.Start;
 	private int currentExerciseTry = 0;
 	private int currentBreath3Serie = 1;
 	private final String ACTION_REMAINDER_SETUP = "com.minimaldevelop.antistress.REMAINDER_SETUP";
@@ -135,16 +140,22 @@ public class AntiStressExerciseActivity extends Activity {
 	OnClickListener mStartListener = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
-//			mStartTime = System.currentTimeMillis();
-			if (mProgressBar.getProgress() == PROGRESSMAX) {
-				progress = 0;
+
+			if (buttonState == ButtonState.Start || buttonState == ButtonState.Resume) {
+				if (mProgressBar.getProgress() == PROGRESSMAX) {
+					progress = 0;
+				}
+
+				mHandler.removeCallbacks(mUpdateTimeTask);
+				doExercise();
+				buttonState = ButtonState.Pause;
+				mStartButton.setText(R.string.pauseButton);
+			} else if (buttonState == ButtonState.Pause) {
+				mHandler.removeCallbacks(mUpdateTimeTask);
+				buttonState = ButtonState.Resume;
+				mStartButton.setText(R.string.resumeButton);
+				progress -= 15;
 			}
-			
-			mHandler.removeCallbacks(mUpdateTimeTask);
-//			mHandler.postDelayed(mUpdateTimeTask, 100);
-			mStopButton.setEnabled(true);
-			mStartButton.setEnabled(false);
-			doExercise();
 		}
 	};
 
@@ -176,6 +187,8 @@ public class AntiStressExerciseActivity extends Activity {
 			mActionLabel.setText(R.string.Finish);
 			mProgressBar.setProgress(PROGRESSMAX); 
 			mActionPrepareLabel.setText("");
+			buttonState = ButtonState.Start;
+			mStartButton.setText(R.string.startButton);
 		}	
 	}
 	
@@ -317,75 +330,7 @@ public class AntiStressExerciseActivity extends Activity {
 					SystemClock.elapsedRealtime() + nextRemainderMiliseconds, pi);
 		}
 	}
-	
-	@SuppressWarnings("unused")
-	private void setupRemainderDeprecated() {
-		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
-		boolean remainderOn = settings.getBoolean("remainderOn", false);
-
-		if (remainderOn) {
-			Context context = this;
-			AlarmManager mgr = (AlarmManager) context
-					.getSystemService(Context.ALARM_SERVICE);
-
-			Calendar now = Calendar.getInstance();
-			int hour = now.get(Calendar.HOUR_OF_DAY);
-			int minute = now.get(Calendar.MINUTE);
-
-			// TODO: For future check SharedPreferences for settings and use
-			// that
-			// instead of default
-
-			int nextAlarmHour = 10;
-
-			// default settings
-			int addMinutes = 60 - minute;
-			int addHours = 0;
-			if (hour < 10) {
-				addHours = 10 - hour;
-				nextAlarmHour = 15;
-			} else if (hour > 10 && hour < 15) {
-				addHours = 15 - hour;
-				nextAlarmHour = 20;
-			} else if (hour > 15 && hour < 20) {
-				addHours = 20 - hour;
-				nextAlarmHour = 10;
-			} else if (hour == 10 || hour == 15 || hour == 20) {
-				addHours = 4;
-				switch (hour) {
-				case 10:
-					nextAlarmHour = 15;
-					break;
-				case 15:
-					nextAlarmHour = 20;
-					break;
-				case 20:
-					nextAlarmHour = 10;
-					break;
-				}
-			} else if (hour > 20) {
-				addHours = 24 - hour + 10;
-				nextAlarmHour = 10;
-			}
-
-			// convert hours and minutes to seconds
-			long addSeconds = addHours * 60 * 60;
-			addSeconds += addMinutes * 60;
-			// convert to mseconds
-			long addMiliSeconds = addSeconds * 1000;
-
-			Intent i = new Intent(context, OnAlarmReceiver.class);
-			i.putExtra("NextAlarmHour", nextAlarmHour);
-			i.putExtra("CurrentMSforAlarm", addMiliSeconds);
-			i.putExtra("CurrentHourforAlarm", addHours);
-			i.putExtra("CurrentMinuteforAlarm", addMinutes);
-			PendingIntent pi = PendingIntent.getBroadcast(context, 0, i, 0);
-			Log.d("AntiStressExerciseActivity", "Poslato");
-			mgr.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-					SystemClock.elapsedRealtime() + 10000, pi);
-		}
-	}
-	
+		
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 	    MenuInflater inflater = getMenuInflater();
@@ -404,7 +349,8 @@ public class AntiStressExerciseActivity extends Activity {
 	        
 	        
 	        case R.id.item2:
-	        	Toast.makeText(this, "Will be implemented soon",Toast.LENGTH_SHORT).show();
+	        	Intent helpIntent = new Intent (AntiStressExerciseActivity.this, HelpActivity.class);
+	        	startActivity(helpIntent);
 	        break;
 	        
 	    }
