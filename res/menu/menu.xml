@@ -2,5 +2,6 @@
     <menu xmlns:android="http://schemas.android.com/apk/res/android">
         <item android:id="@+id/item1" android:titleCondensed="@string/menuSettings" android:title="@string/menuSettings"></item>
         <item android:id="@+id/item2" android:title="@string/menuHelp" android:titleCondensed="@string/menuHelp"></item>
+        <item android:id="@+id/item3" android:title="@string/menuSocialize" android:titleCondensed="@string/menuSocialize"></item>
     </menu> 
 

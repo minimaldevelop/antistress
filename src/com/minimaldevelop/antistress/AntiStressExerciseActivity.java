@@ -33,6 +33,7 @@ import android.widget.ToggleButton;
 
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
+import com.socialize.Socialize;
 
 public class AntiStressExerciseActivity extends Activity {
 
@@ -391,6 +392,11 @@ public class AntiStressExerciseActivity extends Activity {
 	        case R.id.item2:
 	        	Intent helpIntent = new Intent (AntiStressExerciseActivity.this, HelpActivity.class);
 	        	startActivity(helpIntent);
+	        break;
+	        
+	        case R.id.item3:
+	        	Intent socializeIntent = new Intent (AntiStressExerciseActivity.this, SocializeActivity.class);
+	        	startActivity(socializeIntent);
 	        break;
 	        
 	    }

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="hello">Hello World, AntiStressExerciseActivity!</string>
     <string name="app_name">AntiStressExercise</string>
     <string name="Breath3">Take an easy breath for %d seconds</string>
 	<string name="Keep10">Keep your breath %d seconds</string>
@@ -18,6 +17,7 @@
 	<string name="pauseButton">Pause</string>
 	<string name="menuSettings">Settings</string>
 	<string name="menuHelp">Help</string>
+	<string name="menuSocialize">Socialize</string>
 	<string name="notificationTitle">Remainder</string>
 	<string name="notificationBody">It is time for Anti-stress exercise</string>
 	<string name="prefRemainderTitle1">First remainder time</string>
@@ -39,6 +39,8 @@ Use this exercise primarily if you are in state of stress when you have rapid he
 <b>Exercise backround</b><br />
 If you don\'t know why all of this, it is because the standard hyperventilation follow all fear and panic and resulting in heart palpitations, shortness of breath, dizziness, and chest pain. So in this way it\'ll balance the ratio of O2 and CO2 in the blood.
 ]]>
-</string>
+	</string>
+	<string name="socializeText">If you know someone who this application could help, please share it.</string>
+	
 
 </resources>
