@@ -33,11 +33,10 @@ import android.widget.ToggleButton;
 
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
-import com.socialize.Socialize;
 
 public class AntiStressExerciseActivity extends Activity {
 
-	public static boolean D = true;
+	public static boolean D = false;
 	
 	private Handler mHandler = new Handler();
 	private TextView mTimeLabel;
@@ -49,7 +48,7 @@ public class AntiStressExerciseActivity extends Activity {
 	private int tick = 10;
 	private int progress = 0;
 	private final int PROGRESSMAX = 1005;
-	private final int SPEED = 200; //need to be 1000, other values only use for testing
+	private final int SPEED = 1000; //need to be 1000, other values only use for testing
 	private WakeLock wakeLock;
 	private MediaPlayer mPlayer = new MediaPlayer();
 	
@@ -84,7 +83,7 @@ public class AntiStressExerciseActivity extends Activity {
 		final Intent intent = getIntent();		
 		String action = intent.getAction();
 		
-		Log.d(TAG, TAG+" Intent Action=" + action);
+		if (D) Log.d(TAG, TAG+" Intent Action=" + action);
 		
 		if (action != null && action.equals(ACTION_REMAINDER_SETUP)) {
 			if (D) Log.d(TAG, TAG+" Intent Action=ACTION_REMAINDER_SETUP, calling finish()");
@@ -140,7 +139,7 @@ public class AntiStressExerciseActivity extends Activity {
 				sTick = Integer.toString(tick);
 			}
 			mTimeLabel.setText(sTick);
-			Log.i("mUpdateTimeTask", "Elapsed time: " + tick);
+//			Log.i("mUpdateTimeTask", "Elapsed time: " + tick);
 			tick--;
 
 			if (tick >= 0) {
@@ -186,7 +185,7 @@ public class AntiStressExerciseActivity extends Activity {
 	
 	private void doExercise() {
 		//sve puta 3
-		Log.d("doExcercise", "State=" + exerciseState.toString());
+		if (D) Log.d("doExcercise", "State=" + exerciseState.toString());
 		if (currentExerciseTry < 3) {
 			setAndReturnTick();			
 
@@ -218,7 +217,7 @@ public class AntiStressExerciseActivity extends Activity {
 	}
 	
 	private void updateActionText() {
-		Log.d("Update Text", "UpdateText State=" + exerciseState.toString());
+		if (D) Log.d("Update Text", "UpdateText State=" + exerciseState.toString());
 		if (exerciseState == ExerciseState.Breath3) {
 			mActionLabel.setText(getString(R.string.Breath3, tick));
 			mActionPrepareLabel.setText(getString(R.string.Keep10, 10));
@@ -234,7 +233,7 @@ public class AntiStressExerciseActivity extends Activity {
 			}
 		} else if (exerciseState == ExerciseState.BreathOut3Serie) {
 			mActionLabel.setText(getString(R.string.BreathOut3Serie, tick));
-			Log.d("updateActionText()", "currentExerciseTry=" + currentExerciseTry);
+			if (D) Log.d("updateActionText()", "currentExerciseTry=" + currentExerciseTry);
 			if (currentExerciseTry < 3 ){
 				int serie = 1;
 				if (currentBreath3Serie > 10) {
@@ -341,7 +340,7 @@ public class AntiStressExerciseActivity extends Activity {
 
 			Intent i = new Intent(context, OnAlarmReceiver.class);
 			PendingIntent pi = PendingIntent.getBroadcast(context, 0, i, 0);
-			Log.d("AntiStressExerciseActivity", "Sent Remainder Broadcast");
+			if (D) Log.d("AntiStressExerciseActivity", "Sent Remainder Broadcast");
 			mgr.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
 					SystemClock.elapsedRealtime() + nextRemainderMiliseconds, pi);
 		}
@@ -395,8 +394,7 @@ public class AntiStressExerciseActivity extends Activity {
 	        break;
 	        
 	        case R.id.item3:
-	        	Intent socializeIntent = new Intent (AntiStressExerciseActivity.this, SocializeActivity.class);
-	        	startActivity(socializeIntent);
+	        	finish();
 	        break;
 	        
 	    }
@@ -409,7 +407,7 @@ public class AntiStressExerciseActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onDestroy();
 		//if is enabled in shared preferences
-		Log.d(TAG, TAG+" OnDestroy()");
+		if (D) Log.d(TAG, TAG+" OnDestroy()");
 		setupRemainder();
 		mPlayer.stop();
 		mPlayer.release();

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.minimaldevelop.antistress"
-    android:versionCode="2"
-    android:versionName="1.0.1" >
+    android:versionCode="4"
+    android:versionName="1.0.4" >
 
     <uses-sdk android:minSdkVersion="7" />
 
@@ -11,9 +11,6 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <!-- Optional but recommended -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:debuggable="true"
@@ -40,8 +37,6 @@
             android:name=".HelpActivity"
             android:theme="@android:style/Theme.Dialog" />
         <activity android:name=".Preferences" />
-        <activity android:name=".SocializeActivity" 
-            android:screenOrientation="portrait" />
         <activity
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:name="com.google.ads.AdActivity" />
@@ -54,14 +49,6 @@
                 </action>
             </intent-filter>
         </receiver>
-        <!-- Base Activities Required by Socialize -->
-        <activity android:name="com.socialize.ui.comment.CommentActivity" />
-        <activity android:name="com.socialize.ui.action.ActionDetailActivity" />
-        <activity android:name="com.socialize.ui.profile.ProfileActivity" />
-        <activity android:name="com.socialize.auth.facebook.FacebookActivity" />
-        <activity
-            android:launchMode="singleTop"
-            android:name="com.socialize.ui.SocializeLaunchActivity" />
     </application>
 
 </manifest>

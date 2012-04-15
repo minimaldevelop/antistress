@@ -17,7 +17,7 @@
 	<string name="pauseButton">Pause</string>
 	<string name="menuSettings">Settings</string>
 	<string name="menuHelp">Help</string>
-	<string name="menuSocialize">Socialize</string>
+	<string name="menuExit">Exit</string>
 	<string name="notificationTitle">Remainder</string>
 	<string name="notificationBody">It is time for Anti-stress exercise</string>
 	<string name="prefRemainderTitle1">First remainder time</string>
